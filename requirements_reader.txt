@@ -1,0 +1,18 @@
+# Senior
+scipdf_parser>=0.52
+scikit-learn
+PaddlePaddle
+paddleocr
+
+
+# Docs
+pypdf2==2.12.1
+latex2mathml
+Markdown
+pymupdf
+mdtex2html
+python-docx
+xmindparser
+xmind
+moviepy
+arxiv

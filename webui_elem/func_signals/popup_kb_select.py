@@ -3,7 +3,12 @@
 # @Author : Spike
 # @Descr   :
 import gradio
-
+try:
+    from common.knowledge_base.kb_service import base
+    from common.knowledge_base import kb_doc_api, kb_api, utils
+    from common.configs import kb_config
+except ModuleNotFoundError as e:
+    print()
 from webui_elem.func_signals.__import__ import *
 
 

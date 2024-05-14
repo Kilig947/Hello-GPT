@@ -1,5 +1,5 @@
 from common.toolbox import HotReload  # HotReload 的意思是热更新，修改函数插件后，不需要重启程序，代码直接生效
-from langchain import agents
+
 
 
 # < -------------------初始化插件模块--------------- >
@@ -588,6 +588,7 @@ def get_functions_云文档():
 
 
 def crazy_func_to_tool():
+    from langchain import agents
     crazy_kwargs = get_crazy_functions()
     crazy_tools = []
     for crazy in crazy_kwargs:

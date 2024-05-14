@@ -12,8 +12,6 @@ from common.func_box import valid_img_extensions, vain_open_extensions
 from common import gr_converter_html
 from common.func_box import split_domain_url, extract_link_pf
 from common.toolbox import update_ui, update_ui_lastest_msg, get_conf, trimmed_format_exc
-from common.db.repository import prompt_repository
-from common.knowledge_base import kb_doc_api
 from crazy_functions import crazy_utils
 from crazy_functions.pdf_fns.breakdown_txt import breakdown_text_to_satisfy_token_limit
 from request_llms import bridge_all
@@ -245,6 +243,7 @@ def input_output_processing(gpt_response_collection, llm_kwargs, plugin_kwargs, 
     prompt_cls, = json_args_return(plugin_kwargs, ['提示词分类'])
     ipaddr = llm_kwargs['ipaddr']
     if kwargs_prompt:
+        from common.db.repository import prompt_repository
         prompt = prompt_repository.query_prompt(kwargs_prompt, prompt_cls, ipaddr, quote_num=True)
         if prompt:
             prompt = prompt.value
@@ -722,6 +721,7 @@ def user_input_embedding_content(user_input, chatbot, history, llm_kwargs, plugi
         kb_upload, = json_args_return(plugin_kwargs, ['自动录入知识库'])
         files_list = [i for i in content_mapping if os.path.exists(i)]
         if kb_upload and files_list:
+            from common.knowledge_base import kb_doc_api
             kb_doc_api.upload_docs_simple(files=files_list, knowledge_base_name=kb_upload)
     return embedding_content
 

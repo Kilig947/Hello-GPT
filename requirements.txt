@@ -2,19 +2,16 @@
 gradio==3.43.2
 
 # Release requirement
-pypdf2==2.12.1
 tiktoken>=0.3.3
-pydantic==1.10.11
-transformers>=4.27.1
-scipdf_parser>=0.52
 langchain==0.0.354
 langchain-experimental==0.0.47
+pydantic==1.10.11
+transformers>=4.27.1
 SQLAlchemy==2.0.25
 
 # Dependencies
 requests[socks]
 pyperclip
-scikit-learn
 psutil
 distro
 python-dotenv
@@ -22,11 +19,9 @@ Levenshtein
 qrcode
 pypinyin
 SpeechRecognition
-pyDes
 beautifulsoup4
 prompt_toolkit
 dashscope
-pyautogen
 colorama
 pygments
 openai
@@ -42,19 +37,6 @@ chromadb
 chardet
 commentjson
 nltk
-
-# Docs
-latex2mathml
-Markdown
-pymupdf
-mdtex2html
-python-docx
-paddleocr
-xmindparser
-xmind
-PaddlePaddle
-moviepy
-arxiv
 
 # FastAPi
 sse_starlette

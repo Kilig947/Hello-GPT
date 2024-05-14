@@ -11,8 +11,6 @@ from common.configs import (LLM_MODELS, LLM_DEVICE, EMBEDDING_DEVICE,
 import os
 from common.logger_handler import logger
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from langchain.chat_models import ChatOpenAI
-from langchain.llms import OpenAI
 import httpx
 from typing import (
     TYPE_CHECKING,
@@ -41,31 +39,6 @@ async def wrap_done(fn: Awaitable, event: asyncio.Event):
     finally:
         # Signal the aiter to stop.
         event.set()
-
-
-def get_ChatOpenAI(
-        model_name: str,
-        temperature: float,
-        max_tokens: int = None,
-        streaming: bool = True,
-        callbacks: List[Callable] = [],
-        verbose: bool = True,
-        **kwargs: Any,
-) -> ChatOpenAI:
-    API_URL_REDIRECT, API_KEY = get_conf('API_URL_REDIRECT', 'API_KEY')
-    model = ChatOpenAI(
-        streaming=streaming,
-        verbose=verbose,
-        callbacks=callbacks,
-        openai_api_key=select_api_key(API_KEY, model_name),
-        openai_api_base='https://api.yunai.link/v1',
-        model_name=model_name,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        openai_proxy=None,
-        **kwargs
-    )
-    return model
 
 
 def fschat_openai_api_address() -> str:
