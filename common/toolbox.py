@@ -212,7 +212,7 @@ def model_selection(txt, models, llm_kwargs, plugin_kwargs, cookies, chatbot_wit
 
 def _vision_select_model(llm_kwargs, models):
     vision_llm = {}
-    if llm_kwargs['llm_model'].startswith('gpt'):
+    if llm_kwargs['llm_model'].startswith('gpt') and "4o" not in llm_kwargs['llm_model']:
         if "gpt4-v自动识图" in models:
             vision_llm['llm_model'] = 'gpt-4-vision-preview'
     elif llm_kwargs['llm_model'].startswith('gemini'):

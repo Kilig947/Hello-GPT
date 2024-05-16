@@ -24,7 +24,7 @@ class GPTChatInit:
         self.retry_sum = 0
 
     def __conversation_user(self, user_input):
-        if 'vision' in self.llm_model:
+        if 'vision' in self.llm_model or '4o' in self.llm_model:
             what_i_ask_now = {
                 "role": "user",
                 "content": []
@@ -51,10 +51,7 @@ class GPTChatInit:
         messages = []
         if conversation_cnt:
             for index in range(0, 2 * conversation_cnt, 2):
-                what_i_have_asked = {
-                    "role": "user",
-                    "content": str(history[index])
-                }
+                what_i_have_asked = self.__conversation_user(history[index])
                 what_gpt_answer = {
                     "role": "assistant",
                     "content": str(history[index + 1])
@@ -168,9 +165,9 @@ class GPTChatInit:
             self.retry_sum += 1
             error = trimmed_format_exc()
             if self.retry_sum > 3:
-                logger.error(f'请求失败， {error}')
+                logger.error(f'请求失败， {proxies}, {error}')
                 return error, error, error
-            logger.warning(f'请求失败， {error}')
+            logger.warning(f'请求失败， {proxies}, {error}')
             return self.generate_messages(inputs, llm_kwargs, history, system_prompt, stream)
         for chuck in response.iter_lines():
             chunk_decoded, check_json, content = self._analysis_content(chuck)

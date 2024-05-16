@@ -21,6 +21,7 @@ from common.func_box import (user_client_mark,  get_files_list, prompt_personal_
                              get_avatar_img, replace_special_chars, favicon_ascii)
 from common.gr_converter_html import (spike_toast, html_view_blank, to_markdown_tabs, html_tag_color,
                                       link_mtime_to_md, html_local_file)
+from common.knowledge_base.kb_service import base
 from common.path_handler import init_path
 from crazy_functions.reader_fns.crazy_box import detach_cloud_links
 from common.logger_handler import logger
