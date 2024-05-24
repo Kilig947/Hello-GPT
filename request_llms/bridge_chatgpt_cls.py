@@ -31,18 +31,21 @@ class GPTChatInit:
             }
             img_mapping = extract_link_pf(user_input, valid_img_extensions)
             encode_img_map = batch_encode_image(img_mapping)
-            for i in encode_img_map:  # 替换图片链接
-                user_input = user_input.replace(img_mapping[i], '')
-            what_i_ask_now['content'].append({"type": "text",
-                                              "text": user_input})
-            for fp in encode_img_map:
-                what_i_ask_now['content'].append({
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:image/jpeg;base64,{encode_img_map[fp]['data']}"
-                    }
-                })
-            return what_i_ask_now
+            if len(img_mapping) < 10:
+                for i in encode_img_map:  # 替换图片链接
+                    user_input = user_input.replace(img_mapping[i], '')
+                what_i_ask_now['content'].append({"type": "text",
+                                                  "text": user_input})
+                for fp in encode_img_map:
+                    what_i_ask_now['content'].append({
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{encode_img_map[fp]['data']}"
+                        }
+                    })
+                return what_i_ask_now
+            else:
+                logger.info('一次对话超过10张图片，可能会导致对话失败，不提交图片')
         what_i_ask_now = {"role": "user", "content": user_input}
         return what_i_ask_now
 
