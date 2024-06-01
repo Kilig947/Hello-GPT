@@ -1,17 +1,13 @@
-# Core
+# ----------------------------  Core 
 gradio==3.43.2
 
-# Release requirement
+# ----------------------------  Release requirement 
 tiktoken>=0.3.3
-langchain==0.0.354
-langchain-experimental==0.0.47
 pydantic==1.10.11
-transformers>=4.27.1
 SQLAlchemy==2.0.25
 
-# Dependencies
+# ----------------------------  Extended Dependencies
 requests[socks]
-pyperclip
 psutil
 distro
 python-dotenv
@@ -21,22 +17,56 @@ pypinyin
 SpeechRecognition
 beautifulsoup4
 prompt_toolkit
-dashscope
 colorama
 pygments
 openai
 numpy
-rich
 loguru
 pymdown-extensions
-pyfiglet
-starlette
-yarl
 rich
-chromadb
+pyfiglet
+yarl
 chardet
 commentjson
+rich
+
+# ---------------------------- FastAPi 
+starlette
+sse_starlette
+
+# ----------------------------- HuggingFace Community
+# NLP
+sentence_transformers
 nltk
 
-# FastAPi
-sse_starlette
+# vector database
+transformers>=4.27.1
+chromadb
+langchain==0.0.354
+langchain-experimental==0.0.47
+
+# autogen
+pyautogen
+
+# dao-ai
+dashscope
+
+# ---------------------------- Reader 
+# Senior
+scipdf_parser>=0.52
+scikit-learn
+PaddlePaddle
+paddleocr
+
+
+# Docs
+pypdf2==2.12.1
+latex2mathml
+Markdown
+pymupdf
+mdtex2html
+python-docx
+xmindparser
+xmind
+moviepy
+arxiv

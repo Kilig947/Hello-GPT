@@ -1,5 +1,0 @@
-# Hugging face
-sentence_transformers
-
-# autogen
-pyautogen

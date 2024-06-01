@@ -1,6 +1,5 @@
 import os
 import gradio as gr
-from chromadb.api import fastapi
 import fastapi
 
 from common.utils import list_local_embed_models
