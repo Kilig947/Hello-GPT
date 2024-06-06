@@ -5,7 +5,7 @@ from common.db.models.user_info_model import UserInfoModel
 
 def add_user_info(user_name, pass_word):
     with session_scope() as session:
-        user_info = UserInfoModel(user_name, pass_word)
+        user_info = UserInfoModel(user_name=user_name, pass_word=pass_word)
         session.add(user_info)
 
 

@@ -34,7 +34,7 @@ rich
 starlette
 sse_starlette
 
-# ----------------------------- HuggingFace Community
+# ---------------------------- HuggingFace Community
 # NLP
 sentence_transformers
 nltk
