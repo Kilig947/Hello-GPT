@@ -7,6 +7,7 @@ from common.api_server import gradio_app
 from starlette.middleware.sessions import SessionMiddleware
 from common.utils import BaseResponse, ListResponse
 from typing import List, Literal
+from fastapi.middleware.cors import CORSMiddleware
 
 from common.knowledge_base.kb_api import list_kbs, create_kb, delete_kb
 from common.knowledge_base.kb_doc_api import (list_files, upload_docs, delete_docs,
@@ -125,9 +126,20 @@ def mount_app_routes(app: FastAPI):
 
 def create_app():
     app = FastAPI()
-    app.add_middleware(SessionMiddleware, secret_key="!secret")
-    app.middleware('https')(gradio_app.redirect_authentication)
 
+    # 添加 SessionMiddleware
+    app.add_middleware(SessionMiddleware, secret_key="!secret")
+
+    # 添加 CORS 中间件
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  # 允许所有来源。可以根据需要指定特定的域名列表
+        allow_credentials=True,
+        allow_methods=["*"],  # 允许所有 HTTP 方法
+        allow_headers=["*"],  # 允许所有 HTTP 头
+    )
+
+    app.middleware('https')(gradio_app.redirect_authentication)
     mount_app_routes(app)
 
     return app

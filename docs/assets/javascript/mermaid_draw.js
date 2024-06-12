@@ -147,6 +147,7 @@ async function svgInitPz(svgElement, content) {
 function addClickEvent(svgElement, panZoomTiger) {
     // 支持双击选择SVG文本
     let svgTextEle = svgElement.querySelectorAll('text')
+    panZoomTiger.enableMouseWheelZoom();
     for (let i = 0; i < svgTextEle.length; i++) {
     // 监听鼠标悬停事件
         svgTextEle[i].addEventListener('mouseover', function (e) {
@@ -154,8 +155,8 @@ function addClickEvent(svgElement, panZoomTiger) {
             panZoomTiger.disableDblClickZoom();
             // 当鼠标悬停时禁用平移功能
             panZoomTiger.disablePan();
-            // 当鼠标悬停时启用鼠标滚轮缩放功能
-            panZoomTiger.enableMouseWheelZoom();
+            // // 当鼠标悬停时启用鼠标滚轮缩放功能
+            // panZoomTiger.enableMouseWheelZoom();
         });
         svgTextEle[i].addEventListener('mouseout', function (e) {
             // 当鼠标移出时启用双击缩放功能
@@ -163,7 +164,7 @@ function addClickEvent(svgElement, panZoomTiger) {
             // 当鼠标移出时启用平移功能
             panZoomTiger.enablePan();
             // 当鼠标移出时禁用鼠标滚轮缩放功能
-            panZoomTiger.disableMouseWheelZoom();
+            // panZoomTiger.disableMouseWheelZoom();
         });
         svgTextEle[i].addEventListener('dblclick', function (e) {
             // 双击选中文本内容

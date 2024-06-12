@@ -1,11 +1,11 @@
-async function toastConvert2Img() {
+function toastConvert2Img() {
     let pElement = statusDisplay.querySelector('p');
     pElement.innerHTML = '🏃🏻‍正在将对话记录转换为图片，请稍等';
     toast_push('🏃🏻‍正正在将对话记录转换为图片', 2000);
-    await convert2canvas(null, pElement)
+    convert2canvas(null, pElement)
 }
 
-async function convert2canvas(shareContent = null, pElement) {
+function convert2canvas(shareContent = null, pElement) {
     if (shareContent == null) {
         shareContent = chatbot.querySelector('.message-wrap') //获取囊括所有元素的最大的div元素
     }

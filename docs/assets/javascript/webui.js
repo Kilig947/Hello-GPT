@@ -162,6 +162,7 @@ function toolboxClick() {
         }
         openSide(toolbox);
         wantOpenToolbox = true;
+        wantCloseToolbox = false
     }
     adjustSide();
 }
@@ -232,12 +233,12 @@ function add_tooltip_toggle(elem, text) {
 function click_toggle_move(elem, open) {
     if (elem) {
         if (!open) {
-            add_tooltip_toggle(elem, 'Open sidebar');
-            elem.style.left = '30px';
+            add_tooltip_toggle(elem, 'Open Sidebar');
+            elem.style.left = '10px';
             elem.querySelector('svg').style.transform = 'scaleX(-1)';
         } else {
-            add_tooltip_toggle(elem, 'Close sidebar');
-            elem.style.left = '290px';
+            add_tooltip_toggle(elem, 'Close Sidebar');
+            elem.style.left = '280px';
             elem.querySelector('svg').style.transform = 'scaleY(-1)';
         }
     }
@@ -247,12 +248,10 @@ var tog_history_btn;
 var historyToggleButtonStyle = {
     display: 'flex',
     position: 'fixed',
-    left: '290px',
-    top: '50%',
-    zIndex: 4,
+    left: '280px',
+    top: '79px',
+    zIndex: 9999,
     minWidth: 'min(25px, 100%)',
-    borderRadius: '7px',
-    boxShadow: 'rgba(0, 0, 0, 0.19) 0 10px 20px, rgba(0, 0, 0, 0.23) 0 5px 5px'
 };
 
 function addHistoryBtn() {

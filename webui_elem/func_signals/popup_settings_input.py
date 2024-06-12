@@ -19,8 +19,8 @@ latex_delimiters_dict = {
     ],
     'all': [
         {"left": "$$", "right": "$$", "display": True},
-        {"left": "$", "right": "$", "display": False},
-        {"left": "\\(", "right": "\\)", "display": False},
+        {"left": "$", "right": "$", "display": True},
+        {"left": "\\(", "right": "\\)", "display": True},
         {"left": "\\[", "right": "\\]", "display": True},
         {"left": "\\begin{equation}", "right": "\\end{equation}", "display": True},
         {"left": "\\begin{align}", "right": "\\end{align}", "display": True},

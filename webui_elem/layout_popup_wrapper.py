@@ -66,21 +66,21 @@ class Settings:
             self.openai_keys = gr.Textbox(
                 show_label=True, placeholder=f"Your OpenAi-API-key...",
                 # value=hide_middle_chars(user_api_key.value),
-                type="password",  # visible=not HIDE_MY_KEY,
+                type="text",  # visible=not HIDE_MY_KEY,
                 label="API-Key", container=False, elem_id='api-keys-input')
-            self.wps_cookie = gr.Textbox(label='WPS Cookies', type='password', show_label=True,
+            self.wps_cookie = gr.Textbox(label='WPS Cookies', type='text', show_label=True,
                                          placeholder=f"Your WPS cookies dict...", container=False,
                                          elem_id='wps-cookies-input')
-            self.qq_cookie = gr.Textbox(label='QQ Cookies', type='password', show_label=True,
+            self.qq_cookie = gr.Textbox(label='QQ Cookies', type='text', show_label=True,
                                         placeholder=f"Your QQ cookies dict...", container=False,
                                         elem_id='qq-cookies-input')
-            self.feishu_cookie = gr.Textbox(label='Feishu Header', type='password', show_label=True,
+            self.feishu_cookie = gr.Textbox(label='Feishu Header', type='text', show_label=True,
                                             placeholder=f"Your Feishu header dict...", container=False,
                                             elem_id='feishu-cookies-input')
-            self.feishu_project_use_key = gr.Textbox(label='Feishu Project user-key', type='password', show_label=True,
+            self.feishu_project_use_key = gr.Textbox(label='Feishu Project user-key', type='text', show_label=True,
                                                      placeholder=f"Your Project user-key.", container=False,
                                                      elem_id='project-user-key-input')
-            self.feishu_project_cookie = gr.Textbox(label='Feishu Project Header', type='password', show_label=True,
+            self.feishu_project_cookie = gr.Textbox(label='Feishu Project Header', type='text', show_label=True,
                                                     placeholder=f"Your Project header", container=False,
                                                     elem_id='project-cookies-input')
             with gr.Row():

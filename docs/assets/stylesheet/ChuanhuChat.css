@@ -52,6 +52,9 @@ body.popup-open {
     display: none;
 }
 
+#gr-history-refresh-btn {
+    display: none !important;
+}
 #app-title {
     font-weight: var(--prose-header-text-weight);
     font-size: var(--text-xxl);
@@ -1017,7 +1020,7 @@ input:checked + .chatbot-input-more-span {
     max-height: 42px;
     gap: 4px;
     display: flex;
-    justify-content: end;
+    /*justify-content: end;*/
     align-content: center;
     flex-direction: row;
     max-width: 52px;

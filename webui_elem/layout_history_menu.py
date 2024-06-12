@@ -25,7 +25,7 @@ class LeftElem:
                     self.uploadFileBtn = gr.UploadButton(
                         interactive=True, label="", file_types=[".json"],
                         elem_id="gr-history-upload-btn")
-                    self.historyRefreshBtn = gr.Button("", elem_id="gr-history-refresh-btn")
+                    self.historyRefreshBtn = gr.Button("", elem_id="gr-history-refresh-btn", visible=False)
 
 
     def _draw_history_body(self):
