@@ -34,7 +34,7 @@ def refresh_load_data(prompt, request: gr.Request):
     kb_details_tm = base.kb_details_to_dict()
     kb_list = base.kb_dict_to_list(kb_details_tm)
     know_list = gr.update(choices=kb_list + ['新建知识库'], show_label=True)
-    know_load = gr.update(choices=list(kb_details_tm.keys()), label='知识库', show_label=True)
+    know_load = gr.update(choices=list(kb_details_tm.keys()), show_label=True)
 
     select_list = get_all_class()
     favicon_appname = favicon_ascii()
@@ -67,3 +67,9 @@ def user_login(user, password):
     else:
         user_info_repository.add_user_info(user, password)
         return True
+
+
+if __name__ == '__main__':
+    from common.db.repository.prompt_repository import get_all_class
+
+    print(get_all_class())

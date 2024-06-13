@@ -1,7 +1,7 @@
 from common.db.models.knowledge_base_model import KnowledgeBaseModel
 from common.db.models.knowledge_file_model import KnowledgeFileModel, FileDocModel
 from common.db.session import with_session
-from common.knowledge_base.utils import KnowledgeFile
+# from common.knowledge_base.utils import KnowledgeFile
 from typing import List, Dict
 
 
@@ -93,7 +93,7 @@ def list_files_from_db(session, kb_name):
 
 @with_session
 def add_file_to_db(session,
-                   kb_file: KnowledgeFile,
+                   kb_file,
                    docs_count: int = 0,
                    custom_docs: bool = False,
                    doc_infos: List[Dict] = [],  # 形式：[{"id": str, "metadata": dict}, ...]
@@ -134,7 +134,7 @@ def add_file_to_db(session,
 
 
 @with_session
-def delete_file_from_db(session, kb_file: KnowledgeFile):
+def delete_file_from_db(session, kb_file):
     existing_file = (session.query(KnowledgeFileModel)
                      .filter(KnowledgeFileModel.file_name.ilike(kb_file.filename),
                              KnowledgeFileModel.kb_name.ilike(kb_file.kb_name))
@@ -166,7 +166,7 @@ def delete_files_from_db(session, knowledge_base_name: str):
 
 
 @with_session
-def file_exists_in_db(session, kb_file: KnowledgeFile):
+def file_exists_in_db(session, kb_file):
     existing_file = (session.query(KnowledgeFileModel)
                      .filter(KnowledgeFileModel.file_name.ilike(kb_file.filename),
                              KnowledgeFileModel.kb_name.ilike(kb_file.kb_name))

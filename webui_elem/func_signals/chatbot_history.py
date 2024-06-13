@@ -9,7 +9,10 @@ from webui_elem.func_signals.__import__ import *
 def update_models(*args):
     inputs_model = []
     for i in args:
-        inputs_model.extend(i)
+        if isinstance(i, list):
+            inputs_model.extend(i)
+        else:
+            inputs_model.append(i)
     return inputs_model
 
 

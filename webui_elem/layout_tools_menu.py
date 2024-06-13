@@ -26,7 +26,6 @@ class RightElem:
                 obj="toolbox"), elem_classes="close-btn")
 
     def _draw_function_chat(self):
-        preset_prompt = get_conf('preset_prompt')
         with gr.TabItem('基础', id='func_tab', elem_id='chuanhu-toolbox-tabs'):
             with gr.Row():
                 self.preset_prompt = get_conf('preset_prompt')
@@ -44,8 +43,42 @@ class RightElem:
                                               elem_id='prompt_list', samples_per_page=10, )
             self.pro_fp_state = gr.State({'samples': None})
             md_division_line()
-            self.system_prompt = gr.Textbox(show_label=True, lines=2, placeholder=f"System Prompt",
-                                            label="System prompt", value=self.initial_prompt)
+            with gr.Accordion(label='知识设定'):
+                self.kb_input_select = gr.Dropdown(choices=[], value=[],
+                                                   show_label=True, interactive=True, label='选择知识库',
+                                                   multiselect=True, container=False, elem_classes='normal_select')
+                self.vector_search_to_history = gr.Dropdown(label='向量召回策略',
+                                                            choices=['专注力转移', '专注力MAX'],
+                                                            show_label=True,
+                                                            value='专注力转移', elem_classes='normal_select',
+                                                            container=False)
+                self.vector_search_score = gr.Slider(minimum=0, maximum=1100, value=500, step=1, interactive=True,
+                                                     label="SCORE-THRESHOLD", show_label=True,
+                                                     container=False)
+                self.vector_search_top_k = gr.Slider(minimum=1, maximum=10, value=4, step=1, interactive=True,
+                                                     label="TOP-K(引用文档片段数量)", show_label=True, container=False)
+                self.system_prompt = gr.Textbox(show_label=True, lines=2, placeholder=f"System Prompt", container=False,
+                                                label="System prompt", value=self.initial_prompt)
+            md_division_line()
+            # gr.Markdown(get_html('what_news.html').replace('{%v}', 'LLMs调优参数'))
+            with gr.Accordion('提交文本预处理选择'):
+                self.input_models = gr.CheckboxGroup(
+                    choices=['input加密', '网络链接RAG', '提取知识库摘要', 'Vision-Img'],
+                    value=['input加密', '网络链接RAG', 'Vision-Img'],
+                    container=False)
+            with gr.Accordion('提交图片预处理选择', open=False):
+                self.vision_models = gr.CheckboxGroup(choices=['OCR缓存', 'gpt4-v自动识图', 'gemini-v自动识图',
+                                                               'glm-v自动识图'],
+                                                      value=['OCR缓存', 'gpt4-v自动识图',
+                                                             'gemini-v自动识图', 'glm-v自动识图'],
+                                                      container=False)
+            with gr.Accordion('提交飞书项目展示信息选择'):
+                self.project_models = gr.CheckboxGroup(choices=['关联缺陷', '关联用例', '关联任务'],
+                                                       value=['关联任务'],
+                                                       container=False)
+
+            default_model = self.input_models.value + self.vision_models.value + self.project_models.value + [self.vector_search_to_history.value]
+            self.models_box = gr.State(default_model)
 
     def _draw_plugin_chat(self):
         with gr.TabItem('插件', id='plug_tab', elem_id='chuanhu-toolbox-tabs'):
@@ -90,37 +123,6 @@ class RightElem:
     def _draw_setting_chat(self):
         with gr.TabItem('调优', id='sett_tab', elem_id='chuanhu-toolbox-tabs'):
             with gr.Box():
-                # gr.Markdown(get_html('what_news.html').replace('{%v}', 'LLMs调优参数'))
-                with gr.Accordion('提交文本预处理'):
-                    self.input_models = gr.CheckboxGroup(
-                        choices=['input加密', '网络链接RAG', '提取知识库摘要', 'Vision-Img'],
-                        value=['input加密', '网络链接RAG', 'Vision-Img'],
-                        container=False)
-                with gr.Accordion('提交图片预处理', open=False):
-                    self.vision_models = gr.CheckboxGroup(choices=['OCR缓存', 'gpt4-v自动识图', 'gemini-v自动识图',
-                                                                   'glm-v自动识图'],
-                                                          value=['OCR缓存', 'gpt4-v自动识图',
-                                                                 'gemini-v自动识图', 'glm-v自动识图'],
-                                                          container=False)
-                with gr.Accordion('提交飞书项目展示信息'):
-                    self.project_models = gr.CheckboxGroup(choices=['关联缺陷', '关联用例', '关联任务'],
-                                                           value=['关联任务'],
-                                                           container=False)
-
-                md_division_line()
-                with gr.Accordion(label='知识库调优参数'):
-                    self.vector_search_to_history = gr.CheckboxGroup(choices=['专注力转移'],
-                                                                     value=['专注力转移'],
-                                                                     container=False)
-                    self.vector_search_score = gr.Slider(minimum=0, maximum=1100, value=500, step=1, interactive=True,
-                                                         label="SCORE-THRESHOLD", show_label=True,
-                                                         container=False)
-                    self.vector_search_top_k = gr.Slider(minimum=1, maximum=10, value=4, step=1, interactive=True,
-                                                         label="TOP-K", show_label=True, container=False)
-
-                default_model = self.input_models.value + self.vision_models.value + self.project_models.value + self.vector_search_to_history.value
-                self.models_box = gr.State(default_model)
-                md_division_line()
                 with gr.Accordion(label='LLMs调优参数', open=True):
                     default_params, response_format = get_conf('LLM_DEFAULT_PARAMETER', 'RESPONSE_FORMAT')
                     self.top_p = gr.Slider(minimum=-0, maximum=1.0, value=default_params['top_p'], step=0.01,

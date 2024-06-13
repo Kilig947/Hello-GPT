@@ -47,7 +47,7 @@ def batch_import_prompt_list(data_list: list, in_class, source=None):
             prompt_ = query_prompt(name=i['act'], in_class=in_class, source=source)
             if prompt_:
                 update_prompt(name=i['act'], value=i['prompt'], in_class=in_class, source=source, old_prompt=prompt_)
-                logger.warning(f"【{in_class}】分类更新`{i['act']}` 提示词")
+                logger.info(f"【{in_class}】分类更新`{i['act']}` 提示词")
             else:
                 session.add(p)
 
@@ -102,7 +102,6 @@ def update_prompt(in_class, name, value, source, old_prompt: PromptModel):
             old_prompt.name = name
             old_prompt.value = value
             old_prompt.update_time = func.now()
-            logger.info(f'`{source}`成功更新【{name}】提示词')
             session.add(old_prompt)
             return True
         else:

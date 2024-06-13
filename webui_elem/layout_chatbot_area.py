@@ -68,10 +68,7 @@ class ChatbotElem:
                             self.sm_history = gr.Button("📜 历史记录", elem_id='sm_history_btn')
 
                         with gr.Column(scale=1, elem_id='gr-know-sm-column') as self.sm_know_select:
-                            self.kb_input_select = gr.Dropdown(choices=[], value=[],
-                                                               show_label=True, interactive=True, label='知识库',
-                                                               multiselect=True, container=False,
-                                                               elem_classes=['sm_select', 'remove-sr-hide'])
+                            pass
 
                     with gr.Row(elem_id="chatbot-input-tb-row"):
                         with gr.Column(min_width=225, scale=12):

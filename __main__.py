@@ -400,9 +400,9 @@ class ChatBot(LeftElem, ChatbotElem, RightElem, Settings, Config, FakeComponents
         self.project_models.input(func_signals.update_models,
                                   inputs=self.models_combo,
                                   outputs=[self.models_box])
-        self.vector_search_to_history.input(func_signals.update_models,
-                                            inputs=self.models_combo,
-                                            outputs=[self.models_box])
+        self.vector_search_to_history.select(func_signals.update_models,
+                                             inputs=self.models_combo,
+                                             outputs=[self.models_box])
         self.setting_combo = [self.models_box, self.history_round_num, self.default_worker_num,
                               self.ocr_identifying_trust]
         self.input_combo.extend(self.setting_combo)
@@ -560,7 +560,7 @@ def init_gradio_app():
     @gradio_app.get("/file={path_or_url:path}", dependencies=dependencies)
     async def file(path_or_url: str, request: fastapi.Request):
         if not file_authorize_user(path_or_url, request, gradio_app):
-            return {"detail": "Hack me? How dare you?"}
+            return {"detail": "Unauthorized access"}
         return await endpoint(path_or_url, request)
 
     server_app = create_app()

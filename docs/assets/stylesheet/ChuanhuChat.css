@@ -885,7 +885,7 @@ input:checked + .chatbot-input-more-span {
         display: none;
     }
     #toolbox-area > .gradio-box > .gradio-tabs{
-        height: 100%;
+        height: 93%;
         width: var(--toolbox-width);
         overflow: hidden;
     }

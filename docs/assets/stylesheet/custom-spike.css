@@ -153,6 +153,7 @@ div.svelte-15lo0d8 > *, div.svelte-15lo0d8 > .form > * {
 
 /*  */
 #gr-know-sm-column {
+    display: none;
     min-width: min(30%, 100%) !important;
     max-width: 220px !important;
     margin-right: 7px;
