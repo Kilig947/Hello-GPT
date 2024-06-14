@@ -258,10 +258,16 @@ code.language-folded {
 }
 
 #pm_check {
-    left: 20px;
+    left: 185px;
     min-width: min(20px, 100%) !important;
     width: 40px;
     margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+#pm_check span {
+    color: var(--block-label-text-color) !important;
+    font-weight: var(--block-label-text-weight) !important;
 }
 
 #prompt_list .label {

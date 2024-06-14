@@ -42,11 +42,11 @@ def prompt_retrieval(prompt_cls, ipaddr, search=False):
         return retrieval
 
 
-def change_check_txt(checkbox, prompt):
+def change_check_txt(checkbox):
     if checkbox:
-        return gr.update(label='Prompt - 复用', samples=prompt['samples'], visible=True)
+        return gr.update(label='⬇️点击复用', visible=True)
     else:
-        return gr.update(label='Prompt - 编辑', samples=prompt['samples'], visible=True)
+        return gr.update(label='⬇️点击编辑', visible=True)
 
 
 def prompt_reduce(is_all, prompt: gr.Dataset, ipaddr: gr.Request):  # is_all, ipaddr: gr.Request

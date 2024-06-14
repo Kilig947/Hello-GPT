@@ -37,8 +37,8 @@ class RightElem:
                                                     elem_classes='pm_search', )
                 self.multiplexing_edit_check = gr.Checkbox(value=True, show_label=True, elem_id='pm_check',
                                                            container=False, elem_classes='switch-checkbox',
-                                                           interactive=True, label='')
-            self.pro_func_prompt = gr.Dataset(components=[gr.HTML()], label="Prompt - 复用", visible=False,
+                                                           interactive=True, label='⬇️点击复用')
+            self.pro_func_prompt = gr.Dataset(components=[gr.HTML()], label="Prompt", visible=False,
                                               samples=[['...', ""] for i in range(20)], type='index',
                                               elem_id='prompt_list', samples_per_page=10, )
             self.pro_fp_state = gr.State({'samples': None})
