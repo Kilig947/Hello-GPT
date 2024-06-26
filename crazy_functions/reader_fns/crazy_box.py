@@ -449,7 +449,7 @@ def result_extract_to_test_cases(gpt_response_collection, llm_kwargs, plugin_kwa
         xlsx_handler = reader_fns.XlsxHandler(template_file, output_dir=save_path, sheet=sheet)
         xlsx_handler.split_merged_cells()  # 先把合并的单元格拆分，避免写入失败
         file_path = xlsx_handler.list_write_to_excel(sort_test_case, save_as_name=long_name_processing(file_name))
-        chat_file_list += f'{file_name}生成结果如下:\t {gr_converter_html.html_view_blank(__href=file_path, to_tabs=True)}\n\n'
+        chat_file_list += f'生成结果如下:\t {gr_converter_html.html_view_blank(__href=file_path, to_tabs=True)}\n\n'
         chatbot[-1] = [you_say, chat_file_list]
         yield from update_ui(chatbot, history)
         files_limit.update({file_path: file_name})
@@ -622,9 +622,9 @@ def content_img_vision_analyze(content: str, chatbot, history, llm_kwargs, plugi
         # 识别图片中的文字
         save_path = os.path.join(init_path.private_files_path, llm_kwargs['ipaddr'])
         if isinstance(ocr_switch, dict):  # 如果是字典，那么就是自定义OCR参数
-            ocr_switch_copy = copy.deepcopy(llm_kwargs)
-            ocr_switch_copy.update(ocr_switch)
-        vision_submission = reader_fns.submit_threads_img_handle(img_mapping, save_path, cor_cache, ocr_switch_copy)
+            ocr_switch = copy.deepcopy(llm_kwargs)
+            ocr_switch.update(ocr_switch)
+        vision_submission = reader_fns.submit_threads_img_handle(img_mapping, save_path, cor_cache, ocr_switch)
         filed_sum = 0
         for t in vision_submission:
             base_name = os.path.basename(t)

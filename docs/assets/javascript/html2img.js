@@ -9,8 +9,8 @@ function convert2canvas(shareContent = null, pElement) {
     if (shareContent == null) {
         shareContent = chatbot.querySelector('.message-wrap') //获取囊括所有元素的最大的div元素
     }
-    let width = shareContent.scrollWidth * 2; //获取dom宽度（包括元素宽度、内边距和边框，不包括外边距）
-    let height = shareContent.scrollHeight * 2; //获取dom高度（包括元素高度、内边距和边框，不包括外边距）
+    let width = shareContent.scrollWidth * 2  + 100; //获取dom宽度（包括元素宽度、内边距和边框，不包括外边距）
+    let height = shareContent.scrollHeight * 2 + 100; //获取dom高度（包括元素高度、内边距和边框，不包括外边距）
     let canvas = document.createElement("canvas"); //创建一个canvas标签元素
     let scale = 2; //定义放大倍数，可以支持小数
     let imgType = "image/png";//设置默认下载的图片格式
@@ -29,8 +29,8 @@ function convert2canvas(shareContent = null, pElement) {
         width: width, //dom的原始宽度和高度
         height: height,
         useCORS: true, //开启html2canvas的useCORS配置，跨域配置，以解决图片跨域的问题
-        x: 0,              // 确保从左上角开始绘制，防止偏移
-        y: 0               // 同样，确保从顶端开始绘制
+        x: -25,              // 确保从左上角开始绘制，防止偏移
+        y: -25,               // 同样，确保从顶端开始绘制
     };
     html2canvas(shareContent, opts).then(function (canvas) {
         let context = canvas.getContext('2d');

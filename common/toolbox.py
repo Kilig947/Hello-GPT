@@ -150,13 +150,13 @@ def ArgsGeneralWrapper(func):
         chatbot_with_cookie = ChatBotWithCookies(cookies)
         # 引入一个有cookie的chatbot
         chatbot_with_cookie.write_list(chatbot)
-        # 根据提交处理器判断需要对提交做什么处理
-        txt_proc, func_redirect = yield from model_selection(txt, models, llm_kwargs, plugin_kwargs, cookies,
-                                                             chatbot_with_cookie, history, args, func)
         # 根据args判断需要对提交和历史对话做什么处理
-        txt_proc, history, func_redirect = yield from plugins_selection(txt_proc, history, plugin_kwargs,
+        txt_proc, history, func_redirect = yield from plugins_selection(txt, history, plugin_kwargs,
                                                                         args, cookies, chatbot_with_cookie, llm_kwargs,
-                                                                        func_redirect)
+                                                                        func)
+        # 根据提交处理器判断需要对提交做什么处理
+        txt_proc, func_redirect = yield from model_selection(txt_proc, models, llm_kwargs, plugin_kwargs, cookies,
+                                                             chatbot_with_cookie, history, args, func_redirect)
         # 根据cookie 或 对话配置决定到底走哪一步
         yield from func_decision_tree(func_redirect, cookies, single_mode, agent_mode,
                                       txt_proc, llm_kwargs, plugin_kwargs, chatbot_with_cookie,
@@ -177,8 +177,15 @@ def model_selection(txt, models, llm_kwargs, plugin_kwargs, cookies, chatbot_wit
     if '关联用例' in models: llm_kwargs['project_config'].update({'关联用例': True})
     if '关联任务' in models: llm_kwargs['project_config'].update({'关联任务': True})
     if 'Vision-Img' in models:
-        if not plugin_kwargs.get('开启OCR'):
+        if isinstance(plugin_kwargs.get('advanced_arg'), dict):
+            if not plugin_kwargs['advanced_arg'].get('开启OCR'):
+                plugin_kwargs['advanced_arg']['开启OCR'] = _vision_select_model(llm_kwargs, models)
+        elif isinstance(plugin_kwargs.get('parameters_def'), dict):
+            if not plugin_kwargs['parameters_def'].get('开启OCR'):
+                plugin_kwargs['parameters_def']['开启OCR'] = _vision_select_model(llm_kwargs, models)
+        else:
             plugin_kwargs.update({'开启OCR': _vision_select_model(llm_kwargs, models)})
+
     # 实实在在会改变输入的
     if 'input加密' in models: txt_proc = encryption_str(txt_proc)
     if len(args) == 0 or 'RetryChat' in args and not cookies.get('is_plugin'):
