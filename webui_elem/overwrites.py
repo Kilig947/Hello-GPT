@@ -154,10 +154,10 @@ def postprocess_chat_messages(self, chat_message, role):
 
 
 def webpath(fn):
-    if fn.startswith(init_path.base_path, ):
-        web_path = os.path.relpath(fn, init_path.base_path, ).replace('\\', '/')
+    if fn.startswith(init_path.base_path):
+        web_path = os.path.relpath(fn, init_path.base_path).replace('\\', '/')
     else:
-        web_path = os.path.abspath(fn)
+        web_path = fn
     return f'file={web_path}?{os.path.getmtime(fn)}'
 
 
@@ -268,5 +268,4 @@ original_BlockContext_init = gr.blocks.BlockContext.__init__
 gr.blocks.BlockContext.__init__ = BlockContext_init
 
 if __name__ == '__main__':
-    test = ""
-    print(escape_markdown(test))
+    print(os.path.abspath('docs/assets/plugins/waifu_plugin/jquery.min.js'))
