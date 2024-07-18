@@ -246,7 +246,7 @@ class ProjectFeishu:
                     elif isinstance(type_items[key], str) and fields_map_dict[key].get('enum_map'):
                         extraction_txt = fields_map_dict[key]['enum_map'][type_items[key]]
                     elif isinstance(type_items[key], list) and fields_map_dict[key].get('enum_map'):
-                        extraction_txt = "".join([fields_map_dict[key]['enum_map'][i] for i in type_items[key] if i])
+                        extraction_txt = "、".join([fields_map_dict[key]['enum_map'][i] for i in type_items[key] if i])
                     elif fields_map_dict[key].get('compound_map'):  # 复合字段处理
                         for i, v in enumerate(type_items[key]):
                             content = ''
@@ -256,7 +256,7 @@ class ProjectFeishu:
                             index = "-" + str(i) if i > 0 else ''
                             data_dict[fields_map_dict[key]['name'] + index] = content
                     elif isinstance(type_items[key], list):
-                        extraction_txt = "".join([str(i) for i in type_items[key]])  # 确保是字符串
+                        extraction_txt = "、".join([str(i) for i in type_items[key]])  # 确保是字符串
                     else:
                         extraction_txt = type_items[key]
                 except Exception as e:
