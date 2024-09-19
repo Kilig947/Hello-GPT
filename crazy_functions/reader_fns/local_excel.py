@@ -11,7 +11,7 @@ from openpyxl.styles import PatternFill
 from openpyxl.styles import Alignment
 from openpyxl.styles import Font
 
-from crazy_functions.reader_fns.crazy_box import find_index_inlist
+from crazy_functions.submit_fns import find_index_inlist
 from common.func_box import created_atime, 通知机器人
 from common.toolbox import get_conf, trimmed_format_exc
 

@@ -460,28 +460,28 @@ if any(item in claude_models for item in AVAIL_LLM_MODELS):
 from .bridge_claude_cls import predict_no_ui_long_connection as claude_noui_cls
 from .bridge_claude_cls import predict as claude_ui_cls
 
-if not get_conf('ANTHROPIC_API_URL_REDIRECT'):
+if get_conf('ANTHROPIC_API_URL_REDIRECT'):
     model_info.update({
         "claude-3-opus-20240229": {
-            "fn_with_ui": claude_ui_cls,
-            "fn_without_ui": claude_noui_cls,
-            "endpoint": None,
+            "fn_with_ui": chatgpt_ui,
+            "fn_without_ui": chatgpt_noui,
+            "endpoint": openai_endpoint,
             "max_token": 1024 * 200,
             "tokenizer": tokenizer_gpt35,
             "token_cnt": get_token_num_gpt35,
         },
         "claude-3-sonnet-20240229": {
-            "fn_with_ui": claude_ui_cls,
-            "fn_without_ui": claude_noui_cls,
-            "endpoint": None,
+            "fn_with_ui": chatgpt_ui,
+            "fn_without_ui": chatgpt_noui,
+            "endpoint": openai_endpoint,
             "max_token": 1024 * 200,
             "tokenizer": tokenizer_gpt35,
             "token_cnt": get_token_num_gpt35,
         },
         "claude-3-haiku-20240307": {
-            "fn_with_ui": claude_ui_cls,
-            "fn_without_ui": claude_noui_cls,
-            "endpoint": None,
+            "fn_with_ui": chatgpt_ui,
+            "fn_without_ui": chatgpt_noui,
+            "endpoint": openai_endpoint,
             "max_token": 1024 * 32,
             "tokenizer": tokenizer_gpt35,
             "token_cnt": get_token_num_gpt35,

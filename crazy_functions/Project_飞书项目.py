@@ -5,7 +5,7 @@
 
 from common.toolbox import update_ui, CatchException
 from common import gr_converter_html
-from crazy_functions.reader_fns.crazy_box import json_args_return
+from crazy_functions.submit_fns import json_args_return
 from crazy_functions.Reader_自定义插件流程 import Reader_多阶段生成回答
 from crazy_functions.reader_fns.project_feishu import _get_story, ProjectFeishu
 

@@ -3,9 +3,8 @@
 # @Author : Spike
 # @Descr   : 飞书云文档
 import requests
-from common.func_box import split_parse_url, local_relative_path
+from common.func_box import split_parse_url, local_relative_path, long_name_processing
 from shared_utils.config_loader import get_conf
-from common.path_handler import init_path
 import os
 import json
 
@@ -136,6 +135,7 @@ def get_feishu_file(link, project_folder, header=None):
     feishu_docs = Feishu(link, header)
     file_mapping = {}
     file_download_mapping = {}
+    os.makedirs(project_folder, exist_ok=True)
     if feishu_docs.is_folder:
         folder_obj_mapping = feishu_docs.query_folder_list(feishu_docs.share_tag)
         for obj, link in folder_obj_mapping.items():
@@ -146,7 +146,8 @@ def get_feishu_file(link, project_folder, header=None):
         file_download_mapping[file_download_url] = file_name
     for url, name in file_download_mapping.items():
         if url:
-            file_path = os.path.join(project_folder, name)
+            pro_name = long_name_processing(name) + str(name).split('.')[-1]
+            file_path = os.path.join(project_folder, pro_name)
             resp = requests.get(url=url, headers=feishu_docs.header_cookies, verify=False)
             with open(file_path, mode='wb') as f:
                 f.write(resp.content)
@@ -172,4 +173,5 @@ def get_feishu_from_limit(link_limit, project_folder, header=None):
 
 
 if __name__ == '__main__':
-    pass
+    link = 'https://lg0v2tirko.feishu.cn/docx/L5GIdmEEOoif2LxxnH5cQZEDngc'
+    get_feishu_file(link, '/Users/kilig/Job/Python-project/kso_gpt/users_private/files/127.0.0.1')

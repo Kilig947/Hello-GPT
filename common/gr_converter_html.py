@@ -11,6 +11,7 @@ from common.path_handler import init_path
 from shared_utils.config_loader import get_conf
 from common.func_box import valid_img_extensions, local_relative_path
 from crazy_functions.reader_fns.local_markdown import to_markdown_tabs
+from common.logger_handler import logger
 
 
 def get_html(filename):
@@ -52,7 +53,7 @@ def get_fold_panel(btn_id=None):
         if isinstance(content, dict):
             content = json.dumps(content, indent=4, ensure_ascii=False)
         content = f'\n```\n{content.replace("```", "").strip()}\n```\n'
-        title = title.replace('\n', '').strip()
+        title = title.replace('\n', '').replace('<br>', '').strip()
         return fold_html.format(title=f"<p>{title}</p>", content=content, status=status)
 
     return _format

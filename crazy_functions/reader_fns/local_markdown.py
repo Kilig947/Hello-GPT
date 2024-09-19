@@ -6,8 +6,6 @@ import os
 import re
 import json
 
-from common.func_box import Shell
-
 
 class MdProcessor:
 
@@ -17,7 +15,7 @@ class MdProcessor:
     @staticmethod
     def _clean_br_string(s):
         s = re.sub('<\s*br\s*/?>', '\n', s)  # 使用正则表达式同时匹配<br>、<br/>、<br />、< br>和< br/>
-        s = s.replace(' ', '')  # 去除所有空格
+        s = re.sub(r' +', ' ', s)
         s = s.replace('<b>', '\n')
         return s
 
@@ -91,7 +89,7 @@ class MdHandler:
             f.write(content)
 
     def save_mark_map(self):
-        from common import func_box
+        from common.func_box import Shell
         user_path = os.path.join(self.output_dir, 'mark_map')
         os.makedirs(user_path, exist_ok=True)
         html_file = os.path.join(user_path, f"{self.file_name}.html")

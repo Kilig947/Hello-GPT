@@ -57,7 +57,7 @@ def mask_clear_all(data, state, info):
 
 def reader_analysis_output(file: gr.File, content, choice, ipaddr: gr.Request):
     """"""
-    from crazy_functions.reader_fns.crazy_box import file_reader_content
+    from crazy_functions.submit_fns import file_reader_content
     from crazy_functions.reader_fns.local_markdown import MdProcessor
     from crazy_functions.reader_fns.local_excel import XlsxHandler
     user_mark = user_client_mark(ipaddr)

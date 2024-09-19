@@ -11,8 +11,8 @@ from request_llms.bridge_all import predict_no_ui_long_connection as no_ui_long_
 from concurrent.futures import ThreadPoolExecutor, Future
 from common.db.repository import prompt_repository
 from common.func_box import replace_expected_text
-from crazy_functions.reader_fns.crazy_box import split_list_token_limit, breakdown_text_to_satisfy_token_limit
-from crazy_functions.reader_fns.crazy_box import file_reader_content
+from crazy_functions.submit_fns import split_list_token_limit, breakdown_text_to_satisfy_token_limit
+from crazy_functions.submit_fns import file_reader_content
 from typing import Dict, AnyStr
 from common.logger_handler import logger
 

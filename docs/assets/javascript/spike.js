@@ -258,18 +258,20 @@ function replace_input_string() {
 }
 
 //提示信息 封装
-function toast_push(msg, duration) {
-    duration = isNaN(duration) ? 3000 : duration;
-    const m = document.createElement('div');
-    m.innerHTML = msg;
-    m.style.cssText = "font-size:  var(--text-md) !important; color: rgb(255, 255, 255);background-color: rgba(0, 0, 0, 0.6);padding: 10px 15px;margin: 0 0 0 -60px;border-radius: 4px;position: fixed;    top: 50%;left: 50%;width: 130px;text-align: center;";
-    document.body.appendChild(m);
-    setTimeout(function () {
-        var d = 0.5;
-        m.style.opacity = '0';
-        setTimeout(function () {
-            document.body.removeChild(m)
-        }, d * 1000);
+function toast_push(msg, duration = 3000) {
+    const toast = document.createElement('div'); // 创建新的Toast消息元素
+    toast.innerHTML = msg;
+    toast.style.cssText = "font-size: var(--text-md) !important; color: rgb(255, 255, 255);background-color: rgba(0, 0, 0, 0.6);padding: 10px 15px;border-radius: 4px;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);transition: opacity 0.5s ease-in-out;";
+
+    document.body.appendChild(toast);
+    toast.style.opacity = '1'; // 开始时让toast完全可见
+
+    setTimeout(() => {
+        toast.style.opacity = '0'; // 设置透明度为0来开始隐藏动画
+
+        setTimeout(() => {
+            document.body.removeChild(toast); // 注意这里要用document.body而不仅仅是document
+        }, 500);
     }, duration);
 }
 
@@ -449,8 +451,21 @@ function monitorSwipeEvent() {
     }
 }
 
+// 防抖函数
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 function foldPanelAdd(element) {
-    if (element) {
+    if (element && !element.classList.contains('fold-panel-processed')) {
         let collapsible = element.querySelector('.collapsible');
         let contents = element.querySelector('.collapsible-content');
         let loading_circle = element.querySelector('.loading-circle');
@@ -461,47 +476,43 @@ function foldPanelAdd(element) {
         // 假设 .icon-arrow 是跟您的 collapsible button 相关联的箭头
         let arrow = collapsible.querySelector('.icon-fold');
 
-        if (!collapsible.classList.contains('event-listener-added')) {
-            // 读取并应用存储的状态
-            const storedState = sessionStorage.getItem(collapsible.id);
+        // 初始化状态
+        const storedState = sessionStorage.getItem(collapsible.id) || 'none';
+        contents.style.display = storedState;
+        arrow.classList.toggle('rotate-down', storedState === 'block');
 
-            if (storedState) {
-                contents.style.display = storedState;
-                // 更新箭头的方向基于存储的状态
-                if (storedState === "none") {
-                    arrow.classList.remove('rotate-down');
-                } else { // 存储的状态为 "block"
-                    arrow.classList.add('rotate-down');
+        // 使用 requestAnimationFrame 来优化视觉更新
+        const updateVisuals = () => {
+            requestAnimationFrame(() => {
+                if (loading_circle.getAttribute('data-percentage') === 'Done') {
+                    loading_circle.style.display = 'none';
                 }
-            }
-            // 添加事件监听器
-            collapsible.addEventListener('click', function () {
-                if (contents.style.display === "block") {
-                    contents.style.display = "none";
-                    arrow.classList.remove('rotate-down'); // 箭头旋转回默认位置 (0 度)
-
-                    // 记录状态为 'none'
-                    sessionStorage.setItem(collapsible.id, "none");
-                } else {
-                    contents.style.display = "block";
-                    arrow.classList.add('rotate-down'); // 箭头旋转 -90 度
-
-                    // 记录状态为 'block'
-                    sessionStorage.setItem(collapsible.id, "block");
-                }
+                element.style.height = 'auto';
             });
+        };
 
-            // 标记为 event listener 已经被添加
-            collapsible.classList.add('event-listener-added');
-        }
+        // 使用防抖来限制频繁的视觉更新
+        const debouncedUpdateVisuals = debounce(updateVisuals, 100);
+
+        // 点击事件处理
+        collapsible.addEventListener('click', () => {
+            const newState = contents.style.display === "block" ? "none" : "block";
+            contents.style.display = newState;
+            arrow.classList.toggle('rotate-down', newState === "block");
+            sessionStorage.setItem(collapsible.id, newState);
+            debouncedUpdateVisuals();
+        });
+
+        // 标记为已处理
+        element.classList.add('fold-panel-processed');
     }
 }
 
-const chatbotObserverMsgBot = new MutationObserver(function (mutationsList, observer) {
+const chatbotObserverMsgBot = new MutationObserver(debounce((mutationsList, observer) => {
     if (chatbotMsg) {
-        chatbotMsg.querySelectorAll('.bot-row .message.bot .md-message .fold-panel').forEach(foldPanelAdd)
+        chatbotMsg.querySelectorAll('.bot-row .message.bot .md-message .fold-panel:not(.fold-panel-processed)').forEach(foldPanelAdd);
     }
-})
+}, 100));
 
 function gpts_tabs_select(a, b) {
     let selected = gradioApp().querySelector('#store-tabs').querySelector('.selected')

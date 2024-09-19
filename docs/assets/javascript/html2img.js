@@ -1,15 +1,15 @@
-function toastConvert2Img() {
+async function toastConvert2Img() {
     let pElement = statusDisplay.querySelector('p');
     pElement.innerHTML = '🏃🏻‍正在将对话记录转换为图片，请稍等';
-    toast_push('🏃🏻‍正正在将对话记录转换为图片', 2000);
-    convert2canvas(null, pElement)
+    toast_push('🏃🏻‍正在将对话记录转换为图片', 2000);
+    await convert2canvas(null, pElement)
 }
 
-function convert2canvas(shareContent = null, pElement) {
+async function convert2canvas(shareContent = null, pElement) {
     if (shareContent == null) {
         shareContent = chatbot.querySelector('.message-wrap') //获取囊括所有元素的最大的div元素
     }
-    let width = shareContent.scrollWidth * 2  + 100; //获取dom宽度（包括元素宽度、内边距和边框，不包括外边距）
+    let width = shareContent.scrollWidth * 2 + 100; //获取dom宽度（包括元素宽度、内边距和边框，不包括外边距）
     let height = shareContent.scrollHeight * 2 + 100; //获取dom高度（包括元素高度、内边距和边框，不包括外边距）
     let canvas = document.createElement("canvas"); //创建一个canvas标签元素
     let scale = 2; //定义放大倍数，可以支持小数
@@ -70,11 +70,12 @@ function copyToClipboard(image) {
                     .catch(err => console.error('Could not copy image: ', err));
             });
     } else {
+        toast_push('指针未停留在页面中，无法写入剪切板', 2000);
         console.error('The Clipboard API is not available.');
     }
 }
 
-function get_history_name(){
+function get_history_name() {
     let history_select = historySelector.querySelector('.chat-selected-btns').parentElement
     return history_select.querySelector('input').value.replace(/\s/g, '')
 }

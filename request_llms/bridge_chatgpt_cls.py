@@ -24,7 +24,7 @@ class GPTChatInit:
         self.retry_sum = 0
 
     def __conversation_user(self, user_input):
-        if 'vision' in self.llm_model or '4o' in self.llm_model:
+        if any(['vision' in self.llm_model, '4o' in self.llm_model, 'claude-3' in self.llm_model]):
             what_i_ask_now = {
                 "role": "user",
                 "content": []
@@ -37,10 +37,11 @@ class GPTChatInit:
                 what_i_ask_now['content'].append({"type": "text",
                                                   "text": user_input})
                 for fp in encode_img_map:
+                    img_type = encode_img_map[fp]['type'] if 'claude-3' in self.llm_model else 'jpeg'
                     what_i_ask_now['content'].append({
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:image/jpeg;base64,{encode_img_map[fp]['data']}"
+                            "url": f"data:image/{img_type};base64,{encode_img_map[fp]['data']}"
                         }
                     })
                 return what_i_ask_now

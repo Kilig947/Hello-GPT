@@ -190,7 +190,7 @@ def model_selection(txt, models, llm_kwargs, plugin_kwargs, cookies, chatbot_wit
     if 'input加密' in models: txt_proc = encryption_str(txt_proc)
     if len(args) == 0 or 'RetryChat' in args and not cookies.get('is_plugin'):
         if '网络链接RAG' in models and 'moonshot' not in llm_kwargs.get('llm_model', ''):
-            from crazy_functions.reader_fns.crazy_box import user_input_embedding_content, check_url_domain_cloud, \
+            from crazy_functions.submit_fns import user_input_embedding_content, check_url_domain_cloud, \
                 submit_no_use_ui_task
             valid_types = ['pdf', 'md', 'xlsx', 'docx']
             wps_links, qq_link, feishu_link, project_link = check_url_domain_cloud(txt_proc)
@@ -247,7 +247,7 @@ def plugins_selection(txt_proc, history, plugin_kwargs, args, cookies, chatbot_w
         plugin_kwargs['advanced_arg'] = ''
         from common.knowledge_base.kb_func import vector_recall_by_input
         if llm_kwargs['kb_config']['names']:
-            from crazy_functions.reader_fns.crazy_box import submit_no_use_ui_task
+            from crazy_functions.submit_fns import submit_no_use_ui_task
             unpacking_input = yield from vector_recall_by_input(txt_proc, chatbot_with_cookie, history,
                                                                 llm_kwargs, '知识库提示词',
                                                                 '引用知识库回答')
@@ -278,7 +278,7 @@ def func_decision_tree(func, cookies, single_mode, agent_mode,
                 if try_f: try_f = try_f['Function']
             else:
                 txt_proc = cookies.get('last_chat', '')
-                from crazy_functions.reader_fns.crazy_box import submit_no_use_ui_task
+                from crazy_functions.submit_fns import submit_no_use_ui_task
                 try_f = submit_no_use_ui_task
                 args = ()
             yield from try_f(txt_proc, llm_kwargs, plugin_kwargs, chatbot_with_cookie,

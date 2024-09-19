@@ -43,7 +43,7 @@ class RightElem:
                                               elem_id='prompt_list', samples_per_page=10, )
             self.pro_fp_state = gr.State({'samples': None})
             md_division_line()
-            with gr.Accordion(label='知识设定'):
+            with gr.Accordion(label='knowledge Base'):
                 self.kb_input_select = gr.Dropdown(choices=[], value=[],
                                                    show_label=True, interactive=True, label='选择知识库',
                                                    multiselect=True, container=False, elem_classes='normal_select')
@@ -61,7 +61,7 @@ class RightElem:
                                                 label="System prompt", value=self.initial_prompt)
             md_division_line()
             # gr.Markdown(get_html('what_news.html').replace('{%v}', 'LLMs调优参数'))
-            with gr.Accordion('提交文本预处理选择'):
+            with gr.Accordion('提交文本预处理'):
                 self.input_models = gr.CheckboxGroup(
                     choices=['input加密', '网络链接RAG', '提取知识库摘要', 'Vision-Img'],
                     value=['input加密', '网络链接RAG', 'Vision-Img'],
@@ -72,7 +72,7 @@ class RightElem:
                                                       value=['OCR缓存', 'gpt4-v自动识图',
                                                              'gemini-v自动识图', 'glm-v自动识图'],
                                                       container=False)
-            with gr.Accordion('提交飞书项目展示信息选择'):
+            with gr.Accordion('提交飞书项目信息详情'):
                 self.project_models = gr.CheckboxGroup(choices=['关联缺陷', '关联用例', '关联任务'],
                                                        value=['关联任务'],
                                                        container=False)
@@ -118,7 +118,7 @@ class RightElem:
                 self.plugin_advanced_arg = gr.Textbox(show_label=True, label="高级参数输入区", visible=False,
                                                       elem_classes='no_padding_input',
                                                       placeholder="这里是特殊函数插件的高级参数输入区")
-            self.switchy_bt = gr.Button(r"请先从插件列表中选择", variant="secondary", visible=False)
+                self.switchy_bt = gr.Button(r"请先从插件列表中选择", variant="secondary", visible=False)
 
     def _draw_setting_chat(self):
         with gr.TabItem('调优', id='sett_tab', elem_id='chuanhu-toolbox-tabs'):

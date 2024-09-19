@@ -403,7 +403,7 @@ def get_functions_飞书项目():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "筛选时间范围": 7,
                 "筛选未排期需求": '未排期',
                 "提示词分类": "插件定制",
@@ -427,7 +427,7 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 "定制化流程": [{
                     "提示词": "提取文档测试点"
@@ -443,7 +443,7 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 '用例下标排序': None,
                 "定制化流程": [{
@@ -462,7 +462,7 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 '用例下标排序': None,
                 "定制化流程": [{
@@ -485,7 +485,7 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 '用例下标排序': None,
                 "定制化流程": [{
@@ -506,7 +506,7 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 '用例下标排序': None,
                 "上下文关联": True,
@@ -523,7 +523,7 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 '用例下标排序': None,
                 "定制化流程": [{
@@ -542,7 +542,7 @@ def get_functions_云文档():
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Info": "批量总结音频或视频 | 输入参数为路径",
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
                 '用例下标排序': None,
                 "上下文关联": True,
@@ -561,9 +561,9 @@ def get_functions_云文档():
             "AdvancedArgs": True,  # 调用时，唤起高级参数输入区（默认False）
             "ArgsReminder": desc,  # 高级参数输入区的显示提示
             "Parameters": {
-                "开启OCR": {"llm_model": 'gemini-pro-vision'},
+                "开启OCR": {"llm_model": 'gpt-4o'},
                 "提示词分类": "插件定制",
-                "多模型并行": "gpt-3.5-turbo-16k-0613&",
+                # "多模型并行": "gpt-3.5-turbo-16k-0613&",
                 "自动录入知识库": '需求文稿',
                 '用例下标排序': None,
                 "定制化流程": [{
@@ -576,7 +576,7 @@ def get_functions_云文档():
                         '业务知识库': {"查询列表": ["需求文稿"], "知识库提示词": "补充需求文档内容"},
                     }}
                 ],
-                "上下文关联": False,
+                "上下文关联": True,
                 "写入指定模版": "./docs/template/测试用例模版.xlsx",
                 "写入指定Sheet": "测试要点",
                 "处理文件类型": reader_files

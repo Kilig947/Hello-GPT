@@ -45,7 +45,7 @@ def mount_knowledge_routes(app: FastAPI):
              )(create_kb)
 
     app.post("/knowledge_base/delete_knowledge_base",
-             tags=["Knowledge Base Management"],
+             tags=["Knowledge Base management"],
              response_model=BaseResponse,
              summary="删除知识库"
              )(delete_kb)

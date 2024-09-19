@@ -181,6 +181,25 @@ def ipaddr():
             return ip[i][0][1]
 
 
+def long_name_processing(file_name):
+    """
+    Args:
+        file_name: 文件名取材，如果是list，则取下标0，转换为str， 如果是str则取最多20个字符
+    Returns: 返回处理过的文件名
+    """
+    if type(file_name) is list:
+        file_name = file_name[0]
+    if len(file_name) > 20:
+        for i in file_name.splitlines():
+            i = re.sub(r"\s+", " ", i)
+            if i:
+                file_name = replace_special_chars(i[:20])  # 限制文件名最长20个字符
+                break
+    if file_name.find('.') != -1:
+        file_name = "".join(file_name.split('.')[:-1])
+    return file_name
+
+
 def user_client_mark(request: gr.Request):
     if request.username:
         return request.username

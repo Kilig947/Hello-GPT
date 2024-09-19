@@ -72,6 +72,10 @@ def select_api_key(keys, llm_model):
         for k in key_list:
             if is_openai_api_key(k): avail_key_list.append(k)
 
+    if llm_model.startswith('chatgpt'):
+        for k in key_list:
+            if is_openai_api_key(k): avail_key_list.append(k)
+
     if llm_model.startswith('api2d-'):
         for k in key_list:
             if is_api2d_key(k): avail_key_list.append(k)

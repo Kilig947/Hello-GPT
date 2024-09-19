@@ -23,7 +23,7 @@ from common.gr_converter_html import (spike_toast, html_view_blank, to_markdown_
                                       link_mtime_to_md, html_local_file)
 from common.knowledge_base.kb_service import base
 from common.path_handler import init_path
-from crazy_functions.reader_fns.crazy_box import detach_cloud_links
+from crazy_functions.submit_fns import detach_cloud_links
 from common.logger_handler import logger
 from common.db.repository import prompt_repository, cache_repository, user_info_repository
 from common.history_handler import HistoryJsonHandle, thread_write_chat_json
